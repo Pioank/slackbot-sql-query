@@ -6,7 +6,7 @@ def send_message(client, channel_id, date_from):
   try:
       response = client.chat_postMessage(
         channel=channel_id,
-        text="This is your data file from settings: " + date_from,
+        text="This is your data file from: " + date_from,
       )
   except SlackApiError as e:
     # You will get a SlackApiError if "ok" is False
