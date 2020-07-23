@@ -19,7 +19,7 @@ import pandas.io.sql as psql
 
 app = Flask(__name__)
 
-#slack_token = os.environ["SLACK_API_TOKEN"]
+slack_token = os.environ["SLACK_API_TOKEN"]
 client = WebClient(token='slack_token')
 
 @app.route("/interactive", methods=["POST"]) # This is for the interactive part of the APP where the form sends the payload (see /test)
@@ -35,7 +35,7 @@ def interactive():
     country = values["block_id4"]["action_id4"]["selected_option"]["value"] 
     markchan = values["block_checkboxes"]["checkboxes_ation"]["selected_options"]
     
-  
+    # Lines 39 - 44 are obtaining a list of values from a list of dictionaries
     values=list()
     for i in markchan:
       val = {key: i[key] for key in i.keys() & {'value'}} 
@@ -47,10 +47,9 @@ def interactive():
     send_message(client, channel_id, date_from) #From the communications.py
     send_csv_file(client, channel_id, uno) #From the communications.py
     
-    
   return make_response("", 200)  
 
-@app.route("/test", methods=["POST"]) # This is running when user uses slash /fu command and serves the form
+@app.route("/test", methods=["POST"]) # This is running when user uses slash / command and serves the form
 def slack_app():
   try:
     trigger_id = request.form['trigger_id']
@@ -64,7 +63,4 @@ def slack_app():
     return make_response(f"Failed to open a modal due to {code}", 200)
 
 if __name__ == "__main__":
-  # export SLACK_API_TOKEN=xoxb-***
-  # export FLASK_ENV=development
-  # python3 app.py
   app.run()
