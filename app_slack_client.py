@@ -20,7 +20,7 @@ import pandas.io.sql as psql
 app = Flask(__name__)
 
 #slack_token = os.environ["SLACK_API_TOKEN"]
-client = WebClient(token='xoxb-1273721814768-1256413646180-JRyLFT8fBpeQBBGjKL8EsAJu')
+client = WebClient(token='slack_token')
 
 @app.route("/interactive", methods=["POST"]) # This is for the interactive part of the APP where the form sends the payload (see /test)
 def interactive():
